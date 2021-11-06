@@ -1,21 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import LoginScreen from './src/screens/LoginScreen';
+import RegisterScreen from './src/screens/RegisterScreen';
+import VerificationScreen from './src/screens/VerificationScreen';
+import PerInforRegis from './src/screens/PerInforRegis';
+import Tabs from './src/navigation/Tabs';
+import Me from './src/screens/Me';
+import ChangePass from './src/screens/ChangePass';
+import ChatOneOne from './src/screens/ChatOneOne';
+import Friend from './src/screens/Friend';
+import ForgetPass from './src/screens/ForgetPass';
+import VerificationForget from './src/screens/VerificationForget';
+import NewPass from './src/screens/NewPass';
+const Stack = createStackNavigator();
+const App = ({navigation}) => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{}}>
+        <Stack.Screen name="Login" component={LoginScreen} options={{headerShown:false}}/>
+        <Stack.Screen name="Register" component={RegisterScreen} options={{headerTitleAlign:'center',title:"ĐĂNG KÍ SỐ ĐIỆN THOẠI",headerTintColor:"#fff",headerStyle:{backgroundColor:"#2089dc"}}}/>
+        <Stack.Screen name="Verification" component={VerificationScreen} options={{headerTitleAlign:'center',title:"XÁC NHẬN SỐ ĐIỆN THOẠI",headerTintColor:"#fff",headerStyle:{backgroundColor:"#2089dc"}}}/>
+        <Stack.Screen name="PerInforRegis" component={PerInforRegis} options={{headerTitleAlign:'center',title:"THÔNG TIN NGƯỜI DÙNG",headerTintColor:"#fff",headerStyle:{backgroundColor:"#2089dc"}}}/>
+        <Stack.Screen name="Tabs" component={Tabs} options={{headerShown:false,headerStyle:{height:100}}}/>
+        <Stack.Screen name="Me" component={Me} options={{title:"Thông tin cá nhân",headerTitleStyle: { color: '#2089dc'}}}/>       
+        <Stack.Screen name="ChangeP" component={ChangePass} options={{headerTitleAlign:'center',title:"ĐỔI MẬT KHẨU",headerTintColor:"#fff",headerStyle:{backgroundColor:"#2089dc"}}}/>   
+        <Stack.Screen name="ChatOneOne" component={ChatOneOne} options={({route})=>({ title: route.params.name,headerTitleAlign:'center',headerTintColor:"#fff",headerStyle:{backgroundColor:"#2089dc"} })} />
+        <Stack.Screen name="Friendd" component={Friend} options={{title:"",headerStyle:{backgroundColor:"#fff"}}}/>
+        <Stack.Screen name="Forget" component={ForgetPass} options={{headerTitleAlign:'center',title:"QUÊN MẬT KHẨU",headerTintColor:"#fff",headerStyle:{backgroundColor:"#2089dc"}}}/>
+        <Stack.Screen name="VerificationForget" component={VerificationForget} options={{headerTitleAlign:'center',title:"XÁC NHẬN SỐ ĐIỆN THOẠI",headerTintColor:"#fff",headerStyle:{backgroundColor:"#2089dc"}}}/>
+        <Stack.Screen name="NPass" component={NewPass} options={{headerTitleAlign:'center',title:"NHẬP MẬT KHẨU MỚI",headerTintColor:"#fff",headerStyle:{backgroundColor:"#2089dc"}}}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
+export default App;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
