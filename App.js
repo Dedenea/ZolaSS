@@ -13,9 +13,13 @@ import Friend from './src/screens/Friend';
 import ForgetPass from './src/screens/ForgetPass';
 import VerificationForget from './src/screens/VerificationForget';
 import NewPass from './src/screens/NewPass';
+import { Provider } from 'react-redux';
+import Store from './src/redux/store';
+import 'react-native-gesture-handler';
 const Stack = createStackNavigator();
-const App = ({navigation}) => {
+export default function App() {
   return (
+    <Provider store={Store}>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{}}>
         <Stack.Screen name="Login" component={LoginScreen} options={{headerShown:false}}/>
@@ -32,7 +36,7 @@ const App = ({navigation}) => {
         <Stack.Screen name="NPass" component={NewPass} options={{headerTitleAlign:'center',title:"NHẬP MẬT KHẨU MỚI",headerTintColor:"#fff",headerStyle:{backgroundColor:"#2089dc"}}}/>
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }
-export default App;
 

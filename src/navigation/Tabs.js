@@ -7,13 +7,21 @@ import { FontAwesome,FontAwesome5  , Ionicons, MaterialCommunityIcons } from '@e
 import SearchScreen from "../screens/SearchScreen";
 import AddressLLScreen from "../screens/AddressLLScreen";
 import FriendScreen from "../screens/FriendScreen";
+import { useDispatch } from 'react-redux';
+import { accountLogout } from "../redux/auth";
 const Tab=createBottomTabNavigator();
 const Tabs = ({navigation}) =>{
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+      dispatch(accountLogout());
+    };    
     const choiceLogout=()=>{
         Alert.alert('Bạn có muốn thoát hay không?','',[
             {
                 text:'Thoát',
-                onPress:()=>{navigation.navigate("Login")}
+                onPress:()=>{handleLogout},
+                onPress:()=>{navigation.navigate("Login")}  
             },
             {
                 text:'Hủy'

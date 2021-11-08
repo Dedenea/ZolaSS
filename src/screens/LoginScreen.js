@@ -1,16 +1,43 @@
-import React from "react";
+import React,{useState} from "react";
 import { Image, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
 import {Button, Input} from 'react-native-elements'
+import { useDispatch, useSelector } from 'react-redux';
+import {accountLogin} from '../redux/auth';
+import 'react-native-gesture-handler'
 const LoginScreen =({navigation})=>{
+    const dispatch = useDispatch();
+    const [enteredPhone, setEnteredPhone] = useState("");
+    const [enteredPass, setEnteredPass] = useState("");
+    const { isLoading, error, message } = useSelector(state => state.AuthenReducer);
+    const onHandleLogin =() => {
+        let dataLogin = {
+          phone: enteredPhone,
+          password:enteredPass 
+        };
+        dispatch(accountLogin(dataLogin));
+        navigation.navigate("Tabs")
+      };
+    const phoneHandler = (event) => {
+        
+          setEnteredPhone(event.target.value);
+        
+      };
+    const passHandler = (event) => {
+          setEnteredPass(event.target.value);
+      };
+    const onHandleTurnBack = () => {
+        navigation.navigate('Login');
+        dispatch(refreshError());
+      };  
     return (
-        <KeyboardAvoidingView style={styles.container}>
-        <View style={styles.container}>
+        <KeyboardAvoidingView  style={styles.container}>
+        <View onHandleTurnBack={onHandleTurnBack}   style={styles.container}>
             <Image style={styles.image} source={require('../images/logo.png')}/>
             <View style={styles.container2}>
-              <Input type="text" placeholder="Số điện thoại" name="sdt"/>
-              <Input type="text" placeholder="Mật khẩu" name="pas"/>
-              <Button containerStyle={styles.button} title="Đăng nhập"
-                      onPress={()=>navigation.navigate("Tabs")}/>
+              <Input onChange={phoneHandler} type="text" placeholder="Số điện thoại" name="sdt"/>
+              <Input onChange={passHandler} type="text" placeholder="Mật khẩu" name="pas"/>
+              <Button  containerStyle={styles.button} title="Đăng nhập"
+                      onPress={onHandleLogin}/>
               <Button containerStyle={styles.button} title="Đăng kí" type="outline" 
                       onPress={()=>navigation.navigate("Register")}/>
             </View>
